@@ -12,7 +12,7 @@ class Entry
   def initialize(data)
     @first_name     = data[:first_name].capitalize
     @last_name      = data[:last_name].capitalize
-    @email_address  = data[:email_address].downcase
+    @email_address  = data[:email_address]
     @phone_number   = data[:phone_number]
     @address        = data[:address]
     @city           = data[:city]

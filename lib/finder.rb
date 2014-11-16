@@ -25,7 +25,7 @@ class Finder
     end
     new(rows)
   end
-  
+
   def initialize(entries)
    @entries = entries
   end
