@@ -6,8 +6,8 @@ require_relative '../lib/entry'
 class EntryTest < Minitest::Test
   def test_it_has_attributes
     data = {
-      first_name: 'John',
-      last_name: 'Taylor',
+      first_name: 'john',
+      last_name: 'tAylor',
       email_address: 'johntaylor@gmail.com',
       phone_number: '(704) 346 3455',
       address: '1500 Blake Street',
