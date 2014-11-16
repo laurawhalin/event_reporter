@@ -15,7 +15,6 @@ class Finder
                         :email_address,
                         :phone_number,
                         :address,
-                        :street,
                         :city,
                         :state,
                         :zip_code]
