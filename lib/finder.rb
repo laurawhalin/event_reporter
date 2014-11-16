@@ -43,4 +43,20 @@ class Finder
   def find_by_state(string)
     entries.select { |entry| entry.state == string }
   end
+
+  def find_by_email_address(string)
+    entries.select { |entry| entry.email_address == string }
+  end
+
+  def find_by_phone_number(string)
+    entries.select { |entry| entry.phone_number == string }
+  end
+
+  def find_by_address(string)
+    entries.select { |entry| entry.address == string }
+  end
+
+  def find_by_zip_code(string)
+    entries.select { |entry| entry.zip_code == string }
+  end
 end
