@@ -147,4 +147,11 @@ class FinderTest < Minitest::Test
     entries = finder.find_by_zip_code('80122')
     assert_equal 1, entries.length
   end
+
+  def test_find_by_first_name_with_csv
+    entries = Finder.load_entries("./lib/")
+    finder = Finder.new(entries)
+    results = finder.find_by_first_name("Sarah")
+    assert_equal 81, results.length
+  end
 end
