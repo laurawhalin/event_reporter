@@ -1,7 +1,8 @@
-require_relative './queue'
+require_relative 'queue'
+require_relative 'messages'
 
 class CLI
-  attr_reader :command
+  attr_reader :command, :outstream, :instream, :messages
 
   def initialize(instream, outstream)
     @command = ""
@@ -31,6 +32,7 @@ class CLI
       process_help
     when load?
       load_file
+    end
   end
 
   def find?
