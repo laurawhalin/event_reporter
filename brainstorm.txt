@@ -1,0 +1,5 @@
+#EventReporter class that serves as top layer
+#Helper class
+#CSV class that loads(Cleaner - needs to clean data) and saves data 
+#Finder class
+#Queue class
