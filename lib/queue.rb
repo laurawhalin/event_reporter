@@ -20,6 +20,3 @@ class Queue
     end
   end
 end
-
-queue = Queue.new
-puts queue.lookup("first_name", "Sarah")
