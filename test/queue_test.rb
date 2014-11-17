@@ -7,7 +7,7 @@ require_relative '../lib/queue'
 class QueueTest < Minitest::Test
   def test_the_queue_is_empty_at_first
     queue = Queue.new
-    assert_equal 0, queue.entries.count
+    assert_equal 0, queue.results.count
   end
 
   def test_it_finds_by_first_name
@@ -44,23 +44,14 @@ class QueueTest < Minitest::Test
 
   def test_queue_contains_one_after_searching_by_first_name
     queue = Queue.new
-    queue.lookup("first_name", "Sarah")
-    require 'pry'
-    binding.pry
-    assert_equal 80, queue.entries.count
+    assert_equal 78, queue.lookup("first_name", "Sarah").count
   end
 
   def test_queue_zeros_out_after_clearing
-    skip
-    repository = Minitest::Mock.new
-    queue = Queue.new(repository)
-    assert_equal 0, queue.entries.count
-    repository.expect(:find_by_city, [], ["Denver"])
-    queue.lookup("city", "Denver")
-    repository.verify
-    assert_equal 1, queue.entries.count
-    #queue.clear
-    #assert_equal 0, queue.entries.count
+    queue = Queue.new
+    assert_equal 78, queue.lookup("first_name", "Sarah").count
+    queue.clear
+    assert_equal 0, queue.results.count
   end
 
 end
