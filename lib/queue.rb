@@ -13,11 +13,11 @@ class Queue
     if method == "first_name"
       results = repository.find_by_first_name(string)
     elsif method == "last_name"
-      repository.find_by_last_name(string)
+      results = repository.find_by_last_name(string)
     elsif method == "city"
-      repository.find_by_city(string)
+      results = repository.find_by_city(string)
     elsif method == "state"
-      repository.find_by_state(string)
+      results = repository.find_by_state(string)
     end
   end
 

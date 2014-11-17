@@ -2,7 +2,7 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require_relative '../lib/queue'
-#require_relative '../lib/finder'
+#finish testing all other lookup methods
 
 class QueueTest < Minitest::Test
   def test_the_queue_is_empty_at_first
