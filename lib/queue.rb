@@ -1,10 +1,11 @@
-require_relative 'finder'
-require_relative 'messages'
+require_relative 'finder'    # => true
+require_relative 'messages'  # => true
+require 'pry'                # => true
 
 class Queue
-  attr_reader :repository, :messages
+  attr_reader :repository, :messages  # => nil
 
-  def initialize(repository = Finder.load_entries('./lib/'))
+  def initialize(repository = Finder.load_entries)
     @repository = repository
     @results = []
     @messages = Messages.new
@@ -46,13 +47,16 @@ class Queue
   end
 
   def print_results
-    @rows = Array.new
+    # @rows = Array.new
+    #
+    # @results.each do |result|
+    #   @rows << [result.last_name, result.first_name, result.email_address]
+    # end
 
-    @results.each do |result|
-      @rows << [result.last_name, result.first_name, result.email_address]
+    @results.instance_variables.each do |result|
+      binding.pry
+      puts result
     end
-
-    @rows.reduce(&:print_rows)
   end
 
   def save(file_name)
