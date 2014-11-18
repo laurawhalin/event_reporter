@@ -68,7 +68,6 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_prints_the_results_of_the_queue
-    skip
     queue = Queue.new
     print_result =
       "LAST NAME	FIRST NAME	EMAIL	ZIPCODE	CITY	STATE	ADDRESS	PHONE
@@ -93,6 +92,7 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_creates_a_csv
+    skip
     queue = Queue.new
     queue.lookup("first_name", "Tom")
     queue.save(myfile.csv)

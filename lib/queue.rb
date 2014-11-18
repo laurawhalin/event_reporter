@@ -32,10 +32,6 @@ class Queue
     @results.count
   end
 
-  def print_queue
-    print_results
-  end
-
   def print_by(attribute)
     print_results.sort_by { |a| [a.attribute]}
     #need an output: puts "#{messages.header} + #{print_by(?)}" ??
@@ -44,14 +40,7 @@ class Queue
 
   def print_results
     @results.map do |result|
-      "#{result.last_name}\t
-       #{result.first_name}\t
-       #{result.email_address}\t
-       #{result.zip_code}\t
-       #{result.city}\t
-       #{result.state}\t
-       #{result.address}\t
-       #{result.phone_number}\t"
+      "#{result.last_name}\t#{result.first_name}\t#{result.email_address}\t#{result.zip_code}\t#{result.city}\t#{result.state}\t#{result.address}\t#{result.phone_number}\t"
     end
   end
 
