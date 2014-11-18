@@ -2,100 +2,72 @@ require_relative 'queue'
 require_relative 'messages'
 
 class CLI
-  attr_reader :command, :outstream, :instream, :messages
+  attr_reader :command, :arguments, :outstream, :instream, :messages, :queue
 
   def initialize(instream, outstream)
-    @command = ""
-    @messages = Messages.new
-    @instream = instream
-    @outstream = outstream
+    @command    = ""
+    @arguments  = ""
+    @messages   = Messages.new
+    @instream   = instream
+    @outstream  = outstream
+    @queue      = Queue.new
   end
 
   def call
     outstream.puts messages.intro
     until finished?
-      outstream.puts messages.command_request
-      @command = instream.gets.strip
+      @command, *@arguments = get_input.split
       process_commands
     end
+    outstream.puts messages.exit_message
   end
 
-  private
+  def get_input
+    outstream.puts messages.command_request
+    instream.gets.strip
+  end
 
   def process_commands
-    case
-    when find?
-      process_search
-    when queue?
-      process_queue
-    when help?
-      process_help
-    when load?
-      load_file
+    case command
+    when "find"   then process_search(arguments)
+    when "queue"  then process_queue(arguments)
+    when "help"   then process_help(arguments)
+    when "load"   then load_file(arguments)
+    else               outstream.puts messages.invalid_command    
     end
-  end
-
-  def find?
-    command[0] == "find"
-  end
-
-  def queue?
-    command[0] == "queue"
-  end
-
-  def help?
-    command[0] == "help"
-  end
-
-  def load?
-    command[0] == "load"
   end
 
   def finished?
     command == "q" || command == "quit"
   end
 
-  def process_search
-    case
-    when command[1] == "first_name"
-      queue.lookup(command[1], command[2..-1])
-    when command[1] == "last_name"
-      queue.lookup(command[1], command[2..-1])
-    when command[1] == "city"
-      queue.lookup(command[1], command[2..-1])
-    when command[1] == "state"
-      queue.lookup(command[1], command[2..-1])
-    when command[1] == "email_address"
-      queue.lookup(command[1], command[2..-1])
-    when command[1] == "zip_code"
-      queue.lookup(command[1], command[2..-1])
-    when command[1] == "phone_number"
-      queue.lookup(command[1], command[2..-1])
-    when command[1] == "address"
-      queue.lookup(command[1], command[2..-1])
+  def process_search(arguments)
+    method = arguments.shift
+    queue.lookup(method, arguments.join(' '))
+    puts "Found #{queue.count} entries"
+  end
+
+  def process_queue(arguments)
+    case arguments[0]
+    when "clear" then queue.clear
+    when "count" then puts queue.count
+    when "print" then process_print(arguments)
+    when "save"  then queue.save(arguments[2])
     end
   end
 
-  def process_queue
-    case
-    when command[1] == "clear"
-      queue.clear
-    when command[1] == "count"
-      queue.count
-    when command[1] == "print" && command[2] == nil
-      queue.print
-    when command[1] == "print" && command[2] == by
-      queue.print_by(command[3])
-    when command[1] == "save"
-      queue.save(command[-1])
+  def process_print(arguments)
+    case arguments[1]
+    when nil  then queue.print_queue
+    when "by" then queue.print_by(argument[2])
     end
   end
 
-  def load_file
-    if command[1] == nil
+  def load_file(arguments)
+    if parsed_command[1] == nil
       Finder.load_entries
     else
-      Finder.load_entries(command[1])
+      Finder.load_entries(parsed_command[1])
     end
   end
 
