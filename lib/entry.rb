@@ -1,3 +1,5 @@
+require_relative 'normalizer'
+
 class Entry
   attr_reader :first_name,
               :last_name,
@@ -11,14 +13,14 @@ class Entry
               :values
 
   def initialize(data)
-    @first_name     = data[:first_name].capitalize
-    @last_name      = data[:last_name].capitalize
-    @email_address  = data[:email_address]
-    @phone_number   = data[:phone_number]
-    @address        = data[:address]
-    @city           = Normalizer.normalize_city(data[:city])
-    @state          = data[:state]
-    @zip_code       = data[:zip_code]
+    @first_name     = Normalizer.normalize(data[:first_name])
+    @last_name      = Normalizer.normalize(data[:last_name])
+    @email_address  = Normalizer.normalize(data[:email_address])
+    @phone_number   = Normalizer.normalize_phone_number(data[:phone_number])
+    @address        = Normalizer.normalize(data[:address])
+    @city           = Normalizer.normalize(data[:city])
+    @state          = Normalizer.normalize(data[:state])
+    @zip_code       = Normalizer.normalize_zip_code(data[:zip_code])
   end
 
   def name

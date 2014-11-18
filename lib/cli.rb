@@ -29,7 +29,7 @@ class CLI
 
   def get_input
     outstream.puts messages.command_request
-    instream.gets.strip
+    instream.gets.strip.downcase
   end
 
   def split_input
