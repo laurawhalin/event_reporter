@@ -5,7 +5,7 @@ class Finder
   attr_reader :entries
 
   def self.load_entries(directory = "./lib", name =  'event_attendees.csv')
-    file = File.join(directory, name )
+    file = File.join(directory, name)
     data = CSV.open(
           file,
           :headers => [ :entry,

@@ -42,4 +42,8 @@ class Queue
       puts "#{result.last_name}\t#{result.first_name}\t#{result.email_address}"
     end
   end
+
+  def save(file_name)
+    
+  end
 end

@@ -2,107 +2,68 @@ require_relative 'queue'
 require_relative 'messages'
 
 class CLI
-  attr_reader :command, :outstream, :instream, :messages, :queue
+  attr_reader :command, :arguments, :outstream, :instream, :messages, :queue
 
   def initialize(instream, outstream)
-    @command = ""
-    @messages = Messages.new
-    @instream = instream
-    @outstream = outstream
-    @queue = Queue.new
+    @command    = ""
+    @arguments  = ""
+    @messages   = Messages.new
+    @instream   = instream
+    @outstream  = outstream
+    @queue      = Queue.new
   end
 
   def call
     outstream.puts messages.intro
     until finished?
-      outstream.puts messages.command_request
-      @command = instream.gets.strip
+      @command, *@arguments = get_input.split
       process_commands
     end
+    outstream.puts messages.exit_message
   end
 
-  private
+  def get_input
+    outstream.puts messages.command_request
+    instream.gets.strip
+  end
 
   def process_commands
-    case
-    when find?
-      process_search
-    when queue?
-      process_queue
-    when help?
-      process_help
-    when load?
-      load_file
+    case command
+    when "find"   then process_search(arguments)
+    when "queue"  then process_queue(arguments)
+    when "help"   then process_help(arguments)
+    when "load"   then load_file(arguments)
+    else               outstream.puts messages.invalid_command    
     end
-  end
-
-  def find?
-    parsed_command[0] == "find"
-  end
-
-  def queue?
-    parsed_command[0] == "queue"
-  end
-
-  def help?
-    parsed_command[0] == "help"
-  end
-
-  def load?
-    parsed_command[0] == "load"
   end
 
   def finished?
     command == "q" || command == "quit"
   end
 
-  def parsed_command
-    command.split(" ")
+  def process_search(arguments)
+    method = arguments.shift
+    queue.lookup(method, arguments.join(' '))
+    puts "Found #{queue.count} entries"
   end
 
-  def process_search
-    case
-    when parsed_command[1] == "first_name"
-      if parsed_command[2] == parsed_command[-1]
-        lookup = queue.lookup(parsed_command[1], parsed_command[2])
-        puts "Found #{queue.count} results"
-      else
-        queue.lookup(parsed_command[1], parsed_command[2..-1])
-        puts "Found #{queue.count} results"
-      end
-    when parsed_command[1] == "last_name"
-      queue.lookup(parsed_command[1], parsed_command[2..-1])
-    when parsed_command[1] == "city"
-      queue.lookup(parsed_command[1], parsed_command[2..-1])
-    when parsed_command[1] == "state"
-      queue.lookup(parsed_command[1], parsed_command[2..-1])
-    when parsed_command[1] == "email_address"
-      queue.lookup(parsed_command[1], parsed_command[2..-1])
-    when parsed_command[1] == "zip_code"
-      queue.lookup(parsed_command[1], parsed_command[2..-1])
-    when parsed_command[1] == "phone_number"
-      queue.lookup(parsed_command[1], parsed_command[2..-1])
-    when parsed_command[1] == "address"
-      queue.lookup(parsed_command[1], parsed_command[2..-1])
+  def process_queue(arguments)
+    case arguments[0]
+    when "clear" then queue.clear
+    when "count" then puts queue.count
+    when "print" then process_print(arguments)
+    when "save"  then queue.save(arguments[2])
     end
   end
 
-  def process_queue
-    case
-    when parsed_command[1] == "clear"
-      queue.clear
-    when parsed_command[1] == "count"
-      puts queue.count
-    when parsed_command[1] == "print" && parsed_command[2] == nil
-      queue.print_queue
-    when parsed_command[1] == "print" && parsed_command[2] == by
-      queue.print_by(parsed_command[3])
-    when parsed_command[1] == "save"
-      queue.save(parsed_command[-1])
+  def process_print(arguments)
+    case arguments[1]
+    when nil  then queue.print_queue
+    when "by" then queue.print_by(argument[2])
     end
   end
 
-  def load_file
+  def load_file(arguments)
     if parsed_command[1] == nil
       Finder.load_entries
     else
