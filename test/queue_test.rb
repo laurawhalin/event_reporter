@@ -92,8 +92,14 @@ class QueueTest < Minitest::Test
     assert_equal print_result, queue.print_queue
   end
 
-  def test_it_prints_by_attribute_when_argument_is_passed_in
-
+  def test_it_creates_a_csv
+    queue = Queue.new
+    queue.lookup("first_name", "Tom")
+    queue.save(myfile.csv)
+    print_result = "LAST NAME	FIRST NAME	EMAIL	ZIPCODE	CITY	STATE	ADDRESS	PHONE
+    Browne	Mary	arnfe015@jumpstartlab.com
+    Campbell	Mary	lcanhook@jumpstartlab.com"
+    assert_equal print_result, CSV.open(myfile.csv)
   end
 
 end

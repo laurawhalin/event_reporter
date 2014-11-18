@@ -1,5 +1,6 @@
 require_relative 'finder'    # => true
 require_relative 'messages'  # => true
+require 'csv'
 require 'pry'                # => true
 
 class Queue
@@ -36,17 +37,34 @@ class Queue
   end
 
   def print_by(attribute)
-
+    print_results.sort_by { |a| [a.attribute]}
+    #need an output: puts "#{messages.header} + #{print_by(?)}" ??
   end
 
 
   def print_results
     @results.map do |result|
-      "#{result.last_name}\t #{result.first_name}\t"
+      "#{result.last_name}\t
+       #{result.first_name}\t
+       #{result.email_address}\t
+       #{result.zip_code}\t
+       #{result.city}\t
+       #{result.state}\t
+       #{result.address}\t
+       #{result.phone_number}\t"
     end
   end
 
   def save(file_name)
-
+    CSV.open((file_name), "w", :headers => ["LAST NAME",
+                                            "FIRST NAME",
+                                            "EMAIL",
+                                            "ZIPCODE",
+                                            "CITY",
+                                            "STATE",
+                                            "ADDRESS",
+                                            "PHONE"]) do |csv|
+                                              csv << print_results
+    end
   end
 end
