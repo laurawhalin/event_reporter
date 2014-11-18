@@ -2,7 +2,12 @@ require_relative 'queue'
 require_relative 'messages'
 
 class CLI
-  attr_reader :command, :arguments, :outstream, :instream, :messages, :queue
+  attr_reader :command,
+              :arguments,
+              :outstream,
+              :instream,
+              :messages,
+              :queue
 
   def initialize(instream, outstream)
     @command    = ""
@@ -95,11 +100,7 @@ class CLI
   end
 
   def load_file(arguments)
-    if arguments[0] == nil
-      Finder.load_entries
-    else
-      Finder.load_entries(arguments[0])
-    end
+    arguments[0] == nil ? Finder.load_entries : Finder.load_entries(arguments[0])
   end
 
 end

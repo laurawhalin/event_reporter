@@ -20,7 +20,7 @@ class Messages
   end
 
   def file_loaded(argument)
-    puts "\nThe file #{argument} has been loaded successfully."
+    puts "\nThe file #{argument} has been successfully loaded."
   end
 
   def header
