@@ -44,16 +44,17 @@ class Queue
     end
   end
 
+  def print_results_csv
+    @results.map do |result|
+      "#{result.last_name},#{result.first_name},#{result.email_address},#{result.zip_code},#{result.city},#{result.state},#{result.address},#{result.phone_number}"
+      # [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
+    end
+  end
+
   def save(file_name)
-    CSV.open((file_name), "w", :headers => ["LAST NAME",
-                                            "FIRST NAME",
-                                            "EMAIL",
-                                            "ZIPCODE",
-                                            "CITY",
-                                            "STATE",
-                                            "ADDRESS",
-                                            "PHONE"]) do |csv|
-                                              csv << print_results
+    CSV.open((file_name), "w") do |csv|
+      csv << ["LAST NAME",	"FIRST NAME",	"EMAIL",	"ZIPCODE",	"CITY",	"STATE",	"ADDRESS",	"PHONE"]
+      csv << print_results_csv
     end
   end
 end
