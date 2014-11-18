@@ -14,4 +14,8 @@ class Messages
   def exit_message
     "Goodbye"
   end
+
+  def header
+    "LAST NAME\tFIRST NAME\tEMAIL\tZIPCODE\tCITY\tSTATE\tADDRESS\tPHONE\n"
+  end
 end

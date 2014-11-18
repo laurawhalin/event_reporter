@@ -19,7 +19,6 @@ class CLI
       @command, *@arguments = get_input.split
       process_commands
     end
-    outstream.puts messages.exit_message
   end
 
   def get_input
@@ -29,11 +28,12 @@ class CLI
 
   def process_commands
     case command
-    when "find"   then process_search(arguments)
-    when "queue"  then process_queue(arguments)
-    when "help"   then process_help(arguments)
-    when "load"   then load_file(arguments)
-    else               outstream.puts messages.invalid_command    
+    when "find"         then process_search(arguments)
+    when "queue"        then process_queue(arguments)
+    when "help"         then process_help(arguments)
+    when "load"         then load_file(arguments)
+    when "q" || "quit"  then outstream.puts messages.exit_message
+    else                     outstream.puts messages.invalid_command
     end
   end
 

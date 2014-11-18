@@ -7,7 +7,8 @@ class Entry
               :address,
               :city,
               :state,
-              :zip_code
+              :zip_code,
+              :values
 
   def initialize(data)
     @first_name     = data[:first_name].capitalize
@@ -22,6 +23,10 @@ class Entry
 
   def name
     "#{@first_name} #{@last_name}"
+  end
+
+  def values
+    
   end
 
 end

@@ -1,11 +1,13 @@
 require_relative 'finder'
+require_relative 'messages'
 
 class Queue
-  attr_reader :repository
+  attr_reader :repository, :messages
 
   def initialize(repository = Finder.load_entries('./lib/'))
     @repository = repository
     @results = []
+    @messages = Messages.new
   end
 
   def lookup(method, string)
@@ -29,7 +31,7 @@ class Queue
   end
 
   def print_queue
-    puts "LAST NAME\tFIRST NAME\tEMAIL\tZIPCODE\tCITY\tSTATE\tADDRESS\tPHONE\n"
+    puts messages.header
     puts print_results
   end
 
@@ -37,13 +39,23 @@ class Queue
 
   end
 
-  def print_results
-    @results.each do |result|
-      puts "#{result.last_name}\t#{result.first_name}\t#{result.email_address}"
+  def print_rows
+    @rows.each do |row|
+      puts row.join("\t")
     end
   end
 
+  def print_results
+    @rows = Array.new
+
+    @results.each do |result|
+      @rows << [result.last_name, result.first_name, result.email_address]
+    end
+
+    @rows.reduce(&:print_rows)
+  end
+
   def save(file_name)
-    
+
   end
 end

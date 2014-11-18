@@ -61,12 +61,14 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_finds_two_word_first_names
+    skip
     queue = Queue.new
     queue.lookup("first_name", "Summer Rayne")
     assert_equal 1, queue.count
   end
 
   def test_it_prints_the_results_of_the_queue
+    skip
     queue = Queue.new
     print_result =
       "LAST NAME	FIRST NAME	EMAIL	ZIPCODE	CITY	STATE	ADDRESS	PHONE
