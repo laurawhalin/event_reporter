@@ -4,7 +4,7 @@ require_relative 'messages'
 class Queue
   attr_reader :repository, :messages
 
-  def initialize(repository = Finder.load_entries('./lib/'))
+  def initialize(repository = Finder.load_entries)
     @repository = repository
     @results = []
     @messages = Messages.new
@@ -52,7 +52,9 @@ class Queue
       @rows << [result.last_name, result.first_name, result.email_address]
     end
 
-    @rows.reduce(&:print_rows)
+    @rows.each do |row|
+      print row
+    end
   end
 
   def save(file_name)
