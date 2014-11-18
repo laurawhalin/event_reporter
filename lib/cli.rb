@@ -69,7 +69,7 @@ class CLI
 
   def process_print(arguments)
     case arguments[1]
-    when nil  then queue.print_queue
+    when nil  then outstream.puts "#{messages.header} + #{queue.print_queue}"
     when "by" then queue.print_by(argument[2])
     else           outstream.puts messages.invalid_command
     end

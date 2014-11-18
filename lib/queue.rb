@@ -32,30 +32,17 @@ class Queue
   end
 
   def print_queue
-    puts messages.header
-    puts print_results
+    print_results
   end
 
   def print_by(attribute)
 
   end
 
-  def print_rows
-    @rows.each do |row|
-      puts row.join("\t")
-    end
-  end
 
   def print_results
-    # @rows = Array.new
-    #
-    # @results.each do |result|
-    #   @rows << [result.last_name, result.first_name, result.email_address]
-    # end
-
-    @results.instance_variables.each do |result|
-      binding.pry
-      puts result
+    @results.map do |result|
+      "#{result.last_name}\t #{result.first_name}\t"
     end
   end
 

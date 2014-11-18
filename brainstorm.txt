@@ -1,5 +1,5 @@
-#EventReporter class that serves as top layer
-#Helper class
-#CSV class that loads(Cleaner - needs to clean data) and saves data 
-#Finder class
-#Queue class
+# 1. finish queue print
+# 2. finish queue save
+# 3. normalize the data in seperate method
+# 4. find two word first names
+# 5. only able to find after loading file

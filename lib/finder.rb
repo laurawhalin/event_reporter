@@ -31,15 +31,15 @@ class Finder
   end
 
   def find_by_first_name(string)
-    entries.select { |entry| entry.first_name == string }
+    entries.select { |entry| entry.first_name.downcase == string.downcase }
   end
 
   def find_by_last_name(string)
-    entries.select { |entry| entry.last_name == string }
+    entries.select { |entry| entry.last_name.downcase == string.downcase }
   end
 
   def find_by_city(string)
-    entries.select { |entry| entry.city == string }
+    entries.select { |entry| entry.city == string.downcase }
   end
 
   def find_by_state(string)

@@ -16,7 +16,7 @@ class Entry
     @email_address  = data[:email_address]
     @phone_number   = data[:phone_number]
     @address        = data[:address]
-    @city           = data[:city]
+    @city           = Normalizer.normalize_city(data[:city])
     @state          = data[:state]
     @zip_code       = data[:zip_code]
   end
@@ -25,8 +25,11 @@ class Entry
     "#{@first_name} #{@last_name}"
   end
 
-  def values
-    
+  def normalize_city(name)
+    if name == nil
+    else
+      name.downcase
+    end
   end
 
 end
