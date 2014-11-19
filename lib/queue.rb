@@ -48,12 +48,6 @@ class Queue
     end
   end
 
- def print_results_for_csv
-    results.map do |result|
-      [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
-    end
-  end
-
   def save(file_name)
     CSV.open("./data/#{file_name}", "w+") do |csv|
       csv << messages.csv_header

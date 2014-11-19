@@ -8,8 +8,8 @@ class Finder
     file = File.join("./data", name)
     data = CSV.open(
           file,
-          :headers => [ :entry,
-                        :reg_date,
+          :headers => [ #:entry,
+                        #:reg_date,
                         :first_name,
                         :last_name,
                         :email_address,
