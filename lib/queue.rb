@@ -57,20 +57,10 @@ class Queue
 
   def save(file_name)
     CSV.open("./data/#{file_name}", "w+") do |csv|
-      csv << messages.csv_header #["LAST NAME", "FIRST NAME", "EMAIL",    "ZIPCODE", "CITY", "STATE",    "ADDRESS", "PHONE"]
+      csv << messages.csv_header
       print_results_for_csv.each do |result|
         csv << result
       end
     end
   end
-
-
-  # def save(file_name)
-  #   file = File.open("./data/#{file_name}", "w+") do |file|
-  #     file << messages.header
-  #     @results.map do |result|
-  #       file << [result.last_name, result.first_name, result.email_address, result.zip_code, result.city, result.state, result.address, result.phone_number].join(", ") + "\n"
-  #     end
-  #   end
-  # end
 end
