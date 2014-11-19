@@ -4,7 +4,7 @@ require_relative 'entry'
 class Finder
   attr_reader :entries
 
-  def self.load_entries(name =  'event_attendees.csv')
+  def self.load_entries(name = 'event_attendees.csv')
     file = File.join("./data", name)
     data = CSV.open(
           file,

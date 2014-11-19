@@ -20,25 +20,39 @@ class CLI
 
   def call
     outstream.puts messages.intro
-    outstream.puts messages.file_request
-    until finished?
-      split_input
-      process_commands
+    split_input(get_file_input)
+    if file_loaded?
+      load_file(arguments)
+      until finished?
+        split_input(get_user_input)
+        process_commands
+      end
+    else
+      outstream.puts messages.file_request
     end
   end
 
-  def get_input
+  def get_file_input
+    outstream.puts messages.file_request
+    instream.gets.strip.downcase
+  end
+
+  def file_loaded?
+    @command = "load"
+  end
+
+  def get_user_input
     outstream.puts messages.command_request
     instream.gets.strip.downcase
   end
 
-  def split_input
-    @command, *@arguments = get_input.split
+  def split_input(input)
+    @command, *@arguments = input.split
   end
 
   def process_commands
     case command
-    when "find"         then begin_search(arguments) #process_search(arguments)
+    when "find"         then find_by(arguments)
     when "queue"        then process_queue(arguments)
     when "help"         then process_help(arguments)
     when "load"         then load_file(arguments) && messages.file_loaded(arguments[0])
@@ -52,14 +66,18 @@ class CLI
     command == "q" || command == "quit"
   end
 
-  def begin_search(arguments)
+  def find_by(arguments)
     if Entry.instance_methods.include?(arguments[0].to_sym)
-      method = arguments.shift
-      queue.lookup(method, arguments.join(' '))
+      set_lookup_arguments(arguments)
       puts "Found #{queue.count} entries"
     else
       outstream.puts messages.invalid_command
     end
+  end
+
+  def set_lookup_arguments(arguments)
+    method = arguments.shift
+    queue.lookup(method, arguments.join(' '))
   end
 
   def process_queue(arguments)
@@ -105,11 +123,8 @@ class CLI
     end
   end
 
-  def file_loaded?
-    @initial_command.start_with?("load")
-  end
-
   def load_file(arguments)
     arguments[0] == nil ? Finder.load_entries : Finder.load_entries(arguments[0])
+    outstream.puts messages.file_loaded(arguments[0])
   end
 end
