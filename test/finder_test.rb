@@ -1,6 +1,4 @@
-gem 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative '../test_helper'
 require_relative '../lib/finder'
 
 class FinderTest < Minitest::Test
@@ -84,7 +82,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_state('CO')
+    entries = finder.find_by_state('co')
     assert_equal 1, entries.length
   end
 
@@ -96,7 +94,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_state('CO')
+    entries = finder.find_by_state('co')
     assert_equal 2, entries.length
   end
 
@@ -120,7 +118,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_phone_number('(303) 333-3333')
+    entries = finder.find_by_phone_number('3033333333')
     assert_equal 1, entries.length
   end
 
@@ -132,7 +130,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_address('3311 Main Street')
+    entries = finder.find_by_address('3311 main street')
     assert_equal 1, entries.length
   end
 

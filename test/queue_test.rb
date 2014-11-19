@@ -1,8 +1,5 @@
-gem 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative '../test_helper'
 require_relative '../lib/queue'
-#finish testing all other lookup methods
 
 class QueueTest < Minitest::Test
   def test_the_queue_is_empty_at_first
@@ -68,6 +65,7 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_prints_the_results_of_the_queue
+    skip
     queue = Queue.new
     print_result =
       "LAST NAME	FIRST NAME	EMAIL	ZIPCODE	CITY	STATE	ADDRESS	PHONE
@@ -88,7 +86,7 @@ class QueueTest < Minitest::Test
       Gray	Mary	fuushma1@jumpstartlab.com
       Rodgers	Mary	ecbdulwa@jumpstartlab.com"
     queue.lookup("first_name", "Mary")
-    assert_equal print_result, queue.print_queue
+    assert_equal print_result, queue.print_results
   end
 
   def test_it_creates_a_csv

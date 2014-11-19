@@ -58,4 +58,13 @@ class Messages
   def queue_save_description
     "\n'queue save to <filename>' - Exports all data in the current queue to a csv with a name of your choosing."
   end
+
+  def list_of_find_arguments
+    "first_name" || "last_name" || "email_address" || "phone_number" || "address" || "city" || "state" || "zip_code"
+  end
+
+  def save_confirmation(file)
+    puts "The queue has been successfully saved to #{file}."
+  end
+
 end

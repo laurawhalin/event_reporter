@@ -1,10 +1,9 @@
-require_relative 'finder'    # => true
-require_relative 'messages'  # => true
+require_relative 'finder'
+require_relative 'messages'
 require 'csv'
-require 'pry'                # => true
 
 class Queue
-  attr_reader :repository, :messages  # => nil
+  attr_reader :repository, :messages
 
   def initialize(repository = Finder.load_entries)
     @repository = repository
@@ -37,15 +36,26 @@ class Queue
     #need an output: puts "#{messages.header} + #{print_by(?)}" ??
   end
 
+  def titlize(attribute)
+    words = attribute.split(' ')
+    if words[1] == nil
+      attribute.capitalize
+    else
+      words.map! do |word|
+        word.capitalize
+      end
+      words.join(" ")
+    end
+  end
 
   def print_results
     @results.map do |result|
-      "#{result.last_name}\t#{result.first_name}\t#{result.email_address}\t#{result.zip_code}\t#{result.city}\t#{result.state}\t#{result.address}\t#{result.phone_number}\t"
+      "#{titlize(result.last_name)}\t\t#{titlize(result.first_name)}\t\t#{result.email_address}\t\t#{result.zip_code}\t\t#{titlize(result.city)}\t\t#{result.state.upcase}\t\t#{titlize(result.address)}\t\t#{result.phone_number}"
     end
   end
 
   def save(file_name)
-    CSV.open((file_name), "w", :headers => ["LAST NAME",
+    CSV.open(("./data/#{file_name}"), "w", :headers => ["LAST NAME",
                                             "FIRST NAME",
                                             "EMAIL",
                                             "ZIPCODE",

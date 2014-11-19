@@ -26,12 +26,4 @@ class Entry
   def name
     "#{@first_name} #{@last_name}"
   end
-
-  def normalize_city(name)
-    if name == nil
-    else
-      name.downcase
-    end
-  end
-
 end
