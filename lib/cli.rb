@@ -20,17 +20,12 @@ class CLI
 
   def call
     outstream.puts messages.intro
-    split_input(get_file_input)
-    if file_loaded?
-      load_file(arguments)
-      until finished?
-        split_input(get_user_input)
-        process_commands
-      end
-    else
-      outstream.puts messages.file_request
+    until finished?
+      split_input(get_user_input)
+      process_commands
     end
   end
+
 
   def get_file_input
     outstream.puts messages.file_request
@@ -38,7 +33,7 @@ class CLI
   end
 
   def file_loaded?
-    @command = "load"
+    @command == "load"
   end
 
   def get_user_input
@@ -67,7 +62,7 @@ class CLI
   end
 
   def find_by(arguments)
-    if Entry.instance_methods.include?(arguments[0].to_sym)
+    if arguments[0] != nil && Entry.instance_methods.include?(arguments[0].to_sym)
       set_lookup_arguments(arguments)
       puts "Found #{queue.count} entries"
     else
@@ -93,10 +88,10 @@ class CLI
   def process_print(arguments)
     case arguments[1]
     when nil
-      outstream.puts messages.header
+      outstream.puts messages.tab_delimited_header
       outstream.puts queue.print_results
     when "by"
-      outstream.puts messages.header
+      outstream.puts messages.tab_delimited_header
       outstream.puts queue.print_by(arguments[2])
     else
       outstream.puts messages.invalid_command

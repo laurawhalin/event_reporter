@@ -23,8 +23,12 @@ class Messages
     puts "\nThe file #{argument} has been successfully loaded."
   end
 
-  def header
+  def tab_delimited_header
     "LAST NAME\tFIRST NAME\tEMAIL\tZIPCODE\tCITY\tSTATE\tADDRESS\tPHONE\n"
+  end
+
+  def csv_header
+    ["LAST NAME", "FIRST NAME", "EMAIL", "ZIPCODE", "CITY", "STATE", "ADDRESS", "PHONE"]
   end
 
   def help_options
