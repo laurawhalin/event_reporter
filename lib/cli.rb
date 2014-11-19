@@ -26,16 +26,6 @@ class CLI
     end
   end
 
-
-  # def get_file_input
-  #   outstream.puts messages.file_request
-  #   instream.gets.strip.downcase
-  # end
-  #
-  # def file_loaded?
-  #   @command == "load"
-  # end
-
   def get_user_input
     outstream.puts messages.command_request
     instream.gets.strip.downcase
@@ -64,7 +54,7 @@ class CLI
   def find_by(arguments)
     if arguments[0] != nil && Entry.instance_methods.include?(arguments[0].to_sym)
       set_lookup_arguments(arguments)
-      puts "Found #{queue.count} entries"
+      outstream.puts messages.number_of_found_entries(queue)
     else
       outstream.puts messages.invalid_command
     end
@@ -78,7 +68,7 @@ class CLI
   def process_queue(arguments)
     case arguments[0]
     when "clear" then queue.clear
-    when "count" then puts queue.count
+    when "count" then puts outstream.puts messages.queue_count(queue)
     when "print" then process_print(arguments)
     when "save"  then queue.save(arguments[2]) && messages.save_confirmation(arguments[2])
     else              outstream.puts messages.invalid_command

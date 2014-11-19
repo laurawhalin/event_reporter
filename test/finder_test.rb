@@ -112,9 +112,9 @@ class FinderTest < Minitest::Test
 
   def test_find_by_phone_number
     entries = [
-      { first_name: 'John', last_name: 'Taylor', phone_number: '(303) 333-3333' },
-      { first_name: 'Bob', last_name: 'Smith', phone_number: '720-220-2200' },
-      { first_name: 'Cindy', last_name: 'Johnson', phone_number: '(505) 555-5555' }
+      { first_name: 'John', last_name: 'Taylor', homephone: '(303) 333-3333' },
+      { first_name: 'Bob', last_name: 'Smith', homephone: '720-220-2200' },
+      { first_name: 'Cindy', last_name: 'Johnson', homephone: '(505) 555-5555' }
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
@@ -124,9 +124,9 @@ class FinderTest < Minitest::Test
 
   def test_find_by_address
     entries = [
-      { first_name: 'John', last_name: 'Taylor', address: '3311 Main Street' },
-      { first_name: 'Bob', last_name: 'Smith', address: '4545 North Way' },
-      { first_name: 'Cindy', last_name: 'Johnson', address: 'P.O. Box 234' }
+      { first_name: 'John', last_name: 'Taylor', street: '3311 Main Street' },
+      { first_name: 'Bob', last_name: 'Smith', street: '4545 North Way' },
+      { first_name: 'Cindy', last_name: 'Johnson', street: 'P.O. Box 234' }
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
@@ -136,9 +136,9 @@ class FinderTest < Minitest::Test
 
   def test_find_by_zip_code
     entries = [
-      { first_name: 'John', last_name: 'Taylor', zip_code: '80122' },
-      { first_name: 'Bob', last_name: 'Smith', zip_code: '12345' },
-      { first_name: 'Cindy', last_name: 'Johnson', zip_code: '00123' }
+      { first_name: 'John', last_name: 'Taylor', zipcode: '80122' },
+      { first_name: 'Bob', last_name: 'Smith', zipcode: '12345' },
+      { first_name: 'Cindy', last_name: 'Johnson', zipcode: '00123' }
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)

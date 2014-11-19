@@ -12,11 +12,15 @@ class Queue
   end
 
   def lookup(attribute, string)
-    if repository == nil
-      puts "No file has been loaded. #{messages.file_request}"
-    else
+    if repository_loaded?
       @results = repository.find_by(attribute, string)
+    else
+      puts messages.no_file_loaded
     end
+  end
+
+  def repository_loaded?
+    repository != nil
   end
 
   def clear

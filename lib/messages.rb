@@ -28,7 +28,7 @@ class Messages
   end
 
   def csv_header
-    ["LAST NAME", "FIRST NAME", "EMAIL", "ZIPCODE", "CITY", "STATE", "ADDRESS", "PHONE"]
+    ["LAST NAME", "FIRST NAME", "EMAIL ADDRESS", "ZIPCODE", "CITY", "STATE", "STREET", "HOME PHONE"]
   end
 
   def help_options
@@ -63,10 +63,6 @@ class Messages
     "\n'queue save to <filename>' - Exports all data in the current queue to a csv with a name of your choosing."
   end
 
-  def list_of_find_arguments
-    "first_name" || "last_name" || "email_address" || "phone_number" || "address" || "city" || "state" || "zip_code"
-  end
-
   def save_confirmation(file)
     puts "The queue has been successfully saved to #{file}."
   end
@@ -85,6 +81,18 @@ class Messages
 
   def print_formatted_queue_results(result)
     "#{titlize(result.last_name)}\t\t#{titlize(result.first_name)}\t\t#{result.email_address}\t\t#{result.zip_code}\t\t#{titlize(result.city)}\t\t#{result.state.upcase}\t\t#{titlize(result.address)}\t\t#{result.phone_number}"
+  end
+
+  def no_file_loaded
+    "\nNo file has been loaded.#{file_request}"
+  end
+
+  def number_of_found_entries(queue)
+    "\nFound #{queue.count} entries"
+  end
+
+  def queue_count(queue)
+    "\n#{queue.count} entries"
   end
 
 end

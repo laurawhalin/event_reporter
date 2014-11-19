@@ -7,11 +7,11 @@ class EntryTest < Minitest::Test
       first_name: 'John',
       last_name: 'Taylor',
       email_address: 'johntaylor@gmail.com',
-      phone_number: '(704) 346 3455',
-      address: '1500 Blake Street',
+      homephone: '(704) 346 3455',
+      street: '1500 Blake Street',
       city: 'Denver',
       state: 'CO',
-      zip_code: '211'
+      zipcode: '211'
     }
     entry = Entry.new(data)
 
