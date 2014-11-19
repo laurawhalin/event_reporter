@@ -12,12 +12,7 @@ class Queue
   end
 
   def lookup(attribute, string)
-    case attribute
-    when "first_name" then @results = repository.find_by(attribute, string)
-    when "last_name"  then @results = repository.find_by(attribute, string)
-    when "city"       then @results = repository.find_by(attribute, string)
-    when "state"      then @results = repository.find_by(attribute, string)
-    end
+    @results = repository.find_by(attribute, string)
   end
 
   def clear

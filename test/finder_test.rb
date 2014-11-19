@@ -10,7 +10,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_first_name('John')
+    entries = finder.find_by('first_name', 'john')
     assert_equal 1, entries.length
   end
 
@@ -22,7 +22,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_first_name('John')
+    entries = finder.find_by('first_name', 'john')
     assert_equal 2, entries.length
   end
 
@@ -34,7 +34,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_last_name('Taylor')
+    entries = finder.find_by('last_name', 'taylor')
     assert_equal 1, entries.length
   end
 
@@ -46,7 +46,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_last_name('Taylor')
+    entries = finder.find_by('last_name', 'taylor')
     assert_equal 2, entries.length
   end
 
@@ -58,7 +58,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_city('Denver')
+    entries = finder.find_by('city', 'denver')
     assert_equal 1, entries.length
   end
 
@@ -70,7 +70,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_city('Denver')
+    entries = finder.find_by('city', 'denver')
     assert_equal 2, entries.length
   end
 
@@ -82,7 +82,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_state('co')
+    entries = finder.find_by('state', 'co')
     assert_equal 1, entries.length
   end
 
@@ -94,7 +94,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_state('co')
+    entries = finder.find_by('state', 'co')
     assert_equal 2, entries.length
   end
 
@@ -106,7 +106,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_email_address('jjtaylor@email.com')
+    entries = finder.find_by('email_address', 'jjtaylor@email.com')
     assert_equal 1, entries.length
   end
 
@@ -118,7 +118,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_phone_number('3033333333')
+    entries = finder.find_by('phone_number', '3033333333')
     assert_equal 1, entries.length
   end
 
@@ -130,7 +130,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_address('3311 main street')
+    entries = finder.find_by('address', '3311 main street')
     assert_equal 1, entries.length
   end
 
@@ -142,7 +142,7 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_zip_code('80122')
+    entries = finder.find_by('zip_code', '80122')
     assert_equal 1, entries.length
   end
 

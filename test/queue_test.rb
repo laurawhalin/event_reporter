@@ -10,7 +10,7 @@ class QueueTest < Minitest::Test
   def test_it_finds_by_first_name
     repository = Minitest::Mock.new
     queue = Queue.new(repository)
-    repository.expect(:find_by_first_name, [], ["Smith"])
+    repository.expect(:find_by, [], ["first_name", "Smith"])
     queue.lookup("first_name", "Smith")
     repository.verify
   end
@@ -18,7 +18,7 @@ class QueueTest < Minitest::Test
   def test_it_finds_by_last_name
     repository = Minitest::Mock.new
     queue = Queue.new(repository)
-    repository.expect(:find_by_last_name, [], ["Taylor"])
+    repository.expect(:find_by, [], ["last_name", "Taylor"])
     queue.lookup("last_name", 'Taylor')
     repository.verify
   end
@@ -26,7 +26,7 @@ class QueueTest < Minitest::Test
   def test_it_finds_by_city
     repository = Minitest::Mock.new
     queue = Queue.new(repository)
-    repository.expect(:find_by_city, [], ["Denver"])
+    repository.expect(:find_by, [], ["city", "Denver"])
     queue.lookup("city", 'Denver')
     repository.verify
   end
@@ -34,33 +34,32 @@ class QueueTest < Minitest::Test
   def test_it_finds_by_state
     repository = Minitest::Mock.new
     queue = Queue.new(repository)
-    repository.expect(:find_by_state, [], ["CO"])
+    repository.expect(:find_by, [], ["state", "CO"])
     queue.lookup("state", 'CO')
     repository.verify
   end
 
   def test_queue_contains_one_after_searching_by_first_name
     queue = Queue.new
-    assert_equal 78, queue.lookup("first_name", "Sarah").count
+    assert_equal 78, queue.lookup("first_name", "sarah").count
   end
 
   def test_queue_zeros_out_after_clearing
     queue = Queue.new
-    assert_equal 78, queue.lookup("first_name", "Sarah").count
+    assert_equal 78, queue.lookup("first_name", "sarah").count
     queue.clear
     assert_equal 0, queue.count
   end
 
   def test_returns_queue_count
     queue = Queue.new
-    queue.lookup("first_name", "Sarah")
+    queue.lookup("first_name", "sarah")
     assert_equal 78, queue.count
   end
 
   def test_it_finds_two_word_first_names
-    skip
     queue = Queue.new
-    queue.lookup("first_name", "Summer Rayne")
+    queue.lookup("first_name", "summer rayne")
     assert_equal 1, queue.count
   end
 
@@ -92,7 +91,7 @@ class QueueTest < Minitest::Test
   def test_it_creates_a_csv
     skip
     queue = Queue.new
-    queue.lookup("first_name", "Tom")
+    queue.lookup("first_name", "tom")
     queue.save(myfile.csv)
     print_result = "LAST NAME	FIRST NAME	EMAIL	ZIPCODE	CITY	STATE	ADDRESS	PHONE
     Browne	Mary	arnfe015@jumpstartlab.com
