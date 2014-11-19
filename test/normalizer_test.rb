@@ -1,6 +1,4 @@
-gem 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative '../test_helper'
 require_relative '../lib/normalizer'
 
 class NormalizerTest < Minitest::Test
@@ -54,7 +52,7 @@ class NormalizerTest < Minitest::Test
       email_address: 'johNtaylor@Gmail.com',
       phone_number: '(704) 346 3455',
     }
-    assert_equal "704.346.3455", Normalizer.normalize_phone_number(data[:phone_number])
+    assert_equal "7043463455", Normalizer.normalize_phone_number(data[:phone_number])
 
     data = {
       first_name: 'john',
@@ -62,7 +60,7 @@ class NormalizerTest < Minitest::Test
       email_address: 'johNtaylor@Gmail.com',
       phone_number: '704.346.3455',
     }
-    assert_equal "704.346.3455", Normalizer.normalize_phone_number(data[:phone_number])
+    assert_equal "7043463455", Normalizer.normalize_phone_number(data[:phone_number])
   end
 
   def test_it_normalizes_address

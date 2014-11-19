@@ -20,29 +20,39 @@ class CLI
 
   def call
     outstream.puts messages.intro
-    outstream.puts messages.file_request
     until finished?
-      split_input
+      split_input(get_user_input)
       process_commands
     end
   end
 
-  def get_input
+
+  def get_file_input
+    outstream.puts messages.file_request
+    instream.gets.strip.downcase
+  end
+
+  def file_loaded?
+    @command == "load"
+  end
+
+  def get_user_input
     outstream.puts messages.command_request
     instream.gets.strip.downcase
   end
 
-  def split_input
-    @command, *@arguments = get_input.split
+  def split_input(input)
+    @command, *@arguments = input.split
   end
 
   def process_commands
     case command
-    when "find"         then process_search(arguments)
+    when "find"         then find_by(arguments)
     when "queue"        then process_queue(arguments)
     when "help"         then process_help(arguments)
     when "load"         then load_file(arguments) && messages.file_loaded(arguments[0])
-    when "q" || "quit"  then outstream.puts messages.exit_message
+    when "q"            then outstream.puts messages.exit_message
+    when "quit"         then outstream.puts messages.exit_message
     else                     outstream.puts messages.invalid_command
     end
   end
@@ -51,10 +61,18 @@ class CLI
     command == "q" || command == "quit"
   end
 
-  def process_search(arguments)
+  def find_by(arguments)
+    if arguments[0] != nil && Entry.instance_methods.include?(arguments[0].to_sym)
+      set_lookup_arguments(arguments)
+      puts "Found #{queue.count} entries"
+    else
+      outstream.puts messages.invalid_command
+    end
+  end
+
+  def set_lookup_arguments(arguments)
     method = arguments.shift
     queue.lookup(method, arguments.join(' '))
-    puts "Found #{queue.count} entries"
   end
 
   def process_queue(arguments)
@@ -62,7 +80,7 @@ class CLI
     when "clear" then queue.clear
     when "count" then puts queue.count
     when "print" then process_print(arguments)
-    when "save"  then queue.save(arguments[2])
+    when "save"  then queue.save(arguments[2]) && messages.save_confirmation(arguments[2])
     else              outstream.puts messages.invalid_command
     end
   end
@@ -70,10 +88,13 @@ class CLI
   def process_print(arguments)
     case arguments[1]
     when nil
-      outstream.puts messages.header 
+      outstream.puts messages.tab_delimited_header
       outstream.puts queue.print_results
-    when "by" then queue.print_by(argument[2])
-    else           outstream.puts messages.invalid_command
+    when "by"
+      outstream.puts messages.tab_delimited_header
+      outstream.puts queue.print_by(arguments[2])
+    else
+      outstream.puts messages.invalid_command
     end
   end
 
@@ -97,12 +118,8 @@ class CLI
     end
   end
 
-  def file_loaded?
-    @initial_command.start_with?("load")
-  end
-
   def load_file(arguments)
     arguments[0] == nil ? Finder.load_entries : Finder.load_entries(arguments[0])
+    outstream.puts messages.file_loaded(arguments[0])
   end
-
 end
