@@ -27,14 +27,14 @@ class CLI
   end
 
 
-  def get_file_input
-    outstream.puts messages.file_request
-    instream.gets.strip.downcase
-  end
-
-  def file_loaded?
-    @command == "load"
-  end
+  # def get_file_input
+  #   outstream.puts messages.file_request
+  #   instream.gets.strip.downcase
+  # end
+  #
+  # def file_loaded?
+  #   @command == "load"
+  # end
 
   def get_user_input
     outstream.puts messages.command_request
