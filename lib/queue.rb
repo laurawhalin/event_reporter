@@ -1,10 +1,9 @@
-require_relative 'finder'    # => true
-require_relative 'messages'  # => true
+require_relative 'finder'
+require_relative 'messages'
 require 'csv'
-require 'pry'                # => true
 
 class Queue
-  attr_reader :repository, :messages  # => nil
+  attr_reader :repository, :messages
 
   def initialize(repository = Finder.load_entries)
     @repository = repository
@@ -12,16 +11,8 @@ class Queue
     @messages = Messages.new
   end
 
-  def lookup(method, string)
-    if method == "first_name"
-      @results = repository.find_by_first_name(string)
-    elsif method == "last_name"
-      @results = repository.find_by_last_name(string)
-    elsif method == "city"
-      @results = repository.find_by_city(string)
-    elsif method == "state"
-      @results = repository.find_by_state(string)
-    end
+  def lookup(attribute, string)
+    @results = repository.find_by(attribute, string)
   end
 
   def clear
@@ -32,15 +23,28 @@ class Queue
     @results.count
   end
 
-  def print_by(attribute)
-    print_results.sort_by { |a| [a.attribute]}
-    #need an output: puts "#{messages.header} + #{print_by(?)}" ??
-  end
-
-
   def print_results
     @results.map do |result|
-      "#{result.last_name}\t#{result.first_name}\t#{result.email_address}\t#{result.zip_code}\t#{result.city}\t#{result.state}\t#{result.address}\t#{result.phone_number}\t"
+      messages.print_formatted_queue_results(result)
+    end
+  end
+
+  def sort_by(attribute)
+    @results.sort_by! do |result|
+      result.send(attribute)
+    end
+  end
+
+  def print_by(attribute)
+    sort_by(attribute)
+    @results.map do |result|
+      messages.print_formatted_queue_results(result)
+    end
+  end
+
+    def print_results_for_csv
+    @results.map do |result|
+      [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
     end
   end
 
@@ -52,9 +56,21 @@ class Queue
   end
 
   def save(file_name)
-    CSV.open((file_name), "w") do |csv|
-      csv << ["LAST NAME",	"FIRST NAME",	"EMAIL",	"ZIPCODE",	"CITY",	"STATE",	"ADDRESS",	"PHONE"]
-      csv << print_results_csv
+    CSV.open("./data/#{file_name}", "w+") do |csv|
+      csv << messages.csv_header #["LAST NAME", "FIRST NAME", "EMAIL",    "ZIPCODE", "CITY", "STATE",    "ADDRESS", "PHONE"]
+      print_results_for_csv.each do |result|
+        csv << result
+      end
     end
   end
+
+
+  # def save(file_name)
+  #   file = File.open("./data/#{file_name}", "w+") do |file|
+  #     file << messages.header
+  #     @results.map do |result|
+  #       file << [result.last_name, result.first_name, result.email_address, result.zip_code, result.city, result.state, result.address, result.phone_number].join(", ") + "\n"
+  #     end
+  #   end
+  # end
 end

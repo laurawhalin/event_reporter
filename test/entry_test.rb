@@ -1,6 +1,4 @@
-gem 'minitest'
-require 'minitest/autorun'
-require 'minitest/pride'
+require_relative '../test_helper'
 require_relative '../lib/entry'
 
 class EntryTest < Minitest::Test
@@ -19,9 +17,8 @@ class EntryTest < Minitest::Test
 
     assert_equal 'john', entry.first_name
     assert_equal 'taylor', entry.last_name
-    assert_equal 'john taylor', entry.name
     assert_equal 'johntaylor@gmail.com', entry.email_address
-    assert_equal '704.346.3455', entry.phone_number
+    assert_equal '7043463455', entry.phone_number
     assert_equal '1500 blake street', entry.address
     assert_equal 'denver', entry.city
     assert_equal 'co', entry.state

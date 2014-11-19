@@ -1,5 +1,3 @@
-require_relative 'entry'
-
 module Normalizer
   def self.normalize(data)
     if data == nil
@@ -10,10 +8,7 @@ module Normalizer
   def self.normalize_phone_number(data)
     if data == nil
     else
-      cleaned_array = data.gsub(/\D/, "").chars
-      cleaned_array.insert(3, ".")
-      cleaned_array.insert(7, ".")
-      cleaned_array.join
+      data.gsub(/\D/, "")
     end
   end
 
