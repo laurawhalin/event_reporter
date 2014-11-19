@@ -44,17 +44,18 @@ class Queue
     end
   end
 
-  def print_results_csv
-    @results.map do |result|
-      "#{result.last_name},#{result.first_name},#{result.email_address},#{result.zip_code},#{result.city},#{result.state},#{result.address},#{result.phone_number}"
-      # [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
+ def print_results_for_csv
+    results.map do |result|
+      [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
     end
   end
 
   def save(file_name)
     CSV.open((file_name), "w") do |csv|
-      csv << ["LAST NAME",	"FIRST NAME",	"EMAIL",	"ZIPCODE",	"CITY",	"STATE",	"ADDRESS",	"PHONE"]
-      csv << print_results_csv
+      csv << ["LAST NAME", "FIRST NAME", "EMAIL",    "ZIPCODE", "CITY", "STATE",    "ADDRESS", "PHONE"]
+      print_results_for_csv.each do |result|
+        csv << result
+      end
     end
   end
 end

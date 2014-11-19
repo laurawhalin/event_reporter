@@ -88,7 +88,7 @@ class QueueTest < Minitest::Test
       Gray	Mary	fuushma1@jumpstartlab.com
       Rodgers	Mary	ecbdulwa@jumpstartlab.com"
     queue.lookup("first_name", "Mary")
-    assert_equal print_result, queue.print_queue
+    assert_equal print_result, queue.print_results
   end
 
   def test_it_creates_a_csv
