@@ -75,6 +75,7 @@ class QueueTest < Minitest::Test
 
   def test_it_prints_the_results_of_the_queue
     queue = Queue.new
+    queue.repository = Finder.load_entries('event_attendees.csv')
     print_result =
       ["Riordan		Sarah		ctuhspugha@jumpstartlab.com		80212		Denver		CO		2814 Tennyson St.		7202058000",
       "Jenkins		Alexis		sqcoomer11@jumpstartlab.com		80212		Denver		CO		5020 W. Moncrieff Pl		9285563000",
@@ -85,10 +86,11 @@ class QueueTest < Minitest::Test
 
   def test_it_creates_a_csv
     queue = Queue.new
+    queue.repository = Finder.load_entries('event_attendees.csv')
     queue.lookup("first_name", "tom")
-    queue.save("myfile.csv")
+    queue.save("testfile.csv")
     expected_csv = "swider,tom,srooddel@jumpstartlab.com,55057,northfield,mn,300 north college street,9184414000\n"
-    actual_csv = IO.readlines("./data/myfile.csv")[3]
+    actual_csv = IO.readlines("./data/testfile.csv")[3]
     assert_equal(expected_csv, actual_csv)
   end
 end

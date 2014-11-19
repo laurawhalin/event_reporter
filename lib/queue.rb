@@ -3,7 +3,7 @@ require_relative 'messages'
 require 'csv'
 
 class Queue
-  attr_reader  :messages
+  attr_reader   :messages
   attr_accessor :repository
 
   def initialize
