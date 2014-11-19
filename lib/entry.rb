@@ -22,8 +22,4 @@ class Entry
     @state          = Normalizer.normalize(data[:state])
     @zip_code       = Normalizer.normalize_zip_code(data[:zip_code])
   end
-
-  def name
-    "#{@first_name} #{@last_name}"
-  end
 end

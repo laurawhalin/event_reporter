@@ -38,7 +38,7 @@ class CLI
 
   def process_commands
     case command
-    when "find"         then process_search(arguments)
+    when "find"         then begin_search(arguments) #process_search(arguments)
     when "queue"        then process_queue(arguments)
     when "help"         then process_help(arguments)
     when "load"         then load_file(arguments) && messages.file_loaded(arguments[0])
@@ -52,20 +52,14 @@ class CLI
     command == "q" || command == "quit"
   end
 
-  def process_search(arguments)
-    case arguments[0]
-    when "first_name" then begin_search
-    when "last_name"  then begin_search
-    when "city"       then begin_search
-    when "state"      then begin_search
-    else outstream.puts messages.invalid_command
+  def begin_search(arguments)
+    if Entry.instance_methods.include?(arguments[0].to_sym)
+      method = arguments.shift
+      queue.lookup(method, arguments.join(' '))
+      puts "Found #{queue.count} entries"
+    else
+      outstream.puts messages.invalid_command
     end
-  end
-
-  def begin_search
-    method = arguments.shift
-    queue.lookup(method, arguments.join(' '))
-    puts "Found #{queue.count} entries"
   end
 
   def process_queue(arguments)
