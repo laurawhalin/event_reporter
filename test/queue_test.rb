@@ -8,43 +8,51 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_finds_by_first_name
+    queue = Queue.new
     repository = Minitest::Mock.new
-    queue = Queue.new(repository)
     repository.expect(:find_by, [], ["first_name", "Smith"])
-    queue.lookup("first_name", "Smith")
+    queue.lookup("first_name", "smith")
     repository.verify
   end
 
   def test_it_finds_by_last_name
+    skip
     repository = Minitest::Mock.new
-    queue = Queue.new(repository)
+    queue = Queue.new
+    queue.repository = Finder.load_entries
     repository.expect(:find_by, [], ["last_name", "Taylor"])
     queue.lookup("last_name", 'Taylor')
     repository.verify
   end
 
   def test_it_finds_by_city
+    skip
     repository = Minitest::Mock.new
-    queue = Queue.new(repository)
+    queue = Queue.new
+    queue.repository = Finder.load_entries
     repository.expect(:find_by, [], ["city", "Denver"])
     queue.lookup("city", 'Denver')
     repository.verify
   end
 
   def test_it_finds_by_state
+    skip
     repository = Minitest::Mock.new
-    queue = Queue.new(repository)
+    queue = Queue.new
+    queue.repository = Finder.load_entries
     repository.expect(:find_by, [], ["state", "CO"])
     queue.lookup("state", 'CO')
     repository.verify
   end
 
   def test_queue_contains_one_after_searching_by_first_name
+    skip
     queue = Queue.new
     assert_equal 78, queue.lookup("first_name", "sarah").count
   end
 
   def test_queue_zeros_out_after_clearing
+    skip
     queue = Queue.new
     assert_equal 78, queue.lookup("first_name", "sarah").count
     queue.clear
@@ -52,12 +60,14 @@ class QueueTest < Minitest::Test
   end
 
   def test_returns_queue_count
+    skip
     queue = Queue.new
     queue.lookup("first_name", "sarah")
     assert_equal 78, queue.count
   end
 
   def test_it_finds_two_word_first_names
+    skip
     queue = Queue.new
     queue.lookup("first_name", "summer rayne")
     assert_equal 1, queue.count

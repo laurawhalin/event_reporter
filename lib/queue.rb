@@ -3,16 +3,20 @@ require_relative 'messages'
 require 'csv'
 
 class Queue
-  attr_reader :repository, :messages
+  attr_reader  :messages
+  attr_accessor :repository
 
-  def initialize(repository = Finder.load_entries)
-    @repository = repository
+  def initialize
     @results = []
     @messages = Messages.new
   end
 
   def lookup(attribute, string)
-    @results = repository.find_by(attribute, string)
+    if repository == nil
+      puts "No file has been loaded. #{messages.file_request}"
+    else
+      @results = repository.find_by(attribute, string)
+    end
   end
 
   def clear
