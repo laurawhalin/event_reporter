@@ -64,39 +64,21 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_prints_the_results_of_the_queue
-    skip
     queue = Queue.new
     print_result =
-      "LAST NAME	FIRST NAME	EMAIL	ZIPCODE	CITY	STATE	ADDRESS	PHONE
-      Browne	Mary	arnfe015@jumpstartlab.com
-      Campbell	Mary	lcanhook@jumpstartlab.com
-      Joyce	Mary	fseff07438@jumpstartlab.com
-      Schuster	Mary	eoiyu.xu@jumpstartlab.com
-      Grant	Mary	ogtedtle@jumpstartlab.com
-      Jolly	Mary	fxmasterson@jumpstartlab.com
-      Corrado	Mary	rcblanton@jumpstartlab.com
-      Ther	Mary	hobdul27@jumpstartlab.com
-      Coomer	Mary	oered.schor@jumpstartlab.com
-      Bell	Mary	cfeckerp@jumpstartlab.com
-      Skaggs	Mary	ijlldurrett@jumpstartlab.com
-      Shpino	Mary	nrr11388@jumpstartlab.com
-      Costantini	Mary	hvoe13@jumpstartlab.com
-      Bastias	Mary	gorench@jumpstartlab.com
-      Gray	Mary	fuushma1@jumpstartlab.com
-      Rodgers	Mary	ecbdulwa@jumpstartlab.com"
-    queue.lookup("first_name", "Mary")
+      ["Riordan		Sarah		ctuhspugha@jumpstartlab.com		80212		Denver		CO		2814 Tennyson St.		7202058000",
+      "Jenkins		Alexis		sqcoomer11@jumpstartlab.com		80212		Denver		CO		5020 W. Moncrieff Pl		9285563000",
+      "Joyce		Addison		oxke.connery@jumpstartlab.com		80222		Denver		CO		1540 S. Bellaire St		7088299000"]
+    queue.lookup("city", "denver")
     assert_equal print_result, queue.print_results
   end
 
   def test_it_creates_a_csv
-    skip
     queue = Queue.new
     queue.lookup("first_name", "tom")
-    queue.save(myfile.csv)
-    print_result = "LAST NAME	FIRST NAME	EMAIL	ZIPCODE	CITY	STATE	ADDRESS	PHONE
-    Browne	Mary	arnfe015@jumpstartlab.com
-    Campbell	Mary	lcanhook@jumpstartlab.com"
-    assert_equal print_result, CSV.open(myfile.csv)
+    queue.save("myfile.csv")
+    expected_csv = "swider,tom,srooddel@jumpstartlab.com,55057,northfield,mn,300 north college street,9184414000\n"
+    actual_csv = IO.readlines("./data/myfile.csv")[3]
+    assert_equal(expected_csv, actual_csv)
   end
-
 end
