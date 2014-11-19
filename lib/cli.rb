@@ -119,7 +119,7 @@ class CLI
   end
 
   def load_file(arguments)
-    arguments[0] == nil ? Finder.load_entries : Finder.load_entries(arguments[0])
+    arguments[0] == nil ? queue.repository = Finder.load_entries : queue.repository = Finder.load_entries(arguments[0])
     outstream.puts messages.file_loaded(arguments[0])
   end
 end

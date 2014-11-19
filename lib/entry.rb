@@ -16,10 +16,10 @@ class Entry
     @first_name     = Normalizer.normalize(data[:first_name])
     @last_name      = Normalizer.normalize(data[:last_name])
     @email_address  = Normalizer.normalize(data[:email_address])
-    @phone_number   = Normalizer.normalize_phone_number(data[:phone_number])
-    @address        = Normalizer.normalize(data[:address])
+    @phone_number   = Normalizer.normalize_phone_number(data[:homephone])
+    @address        = Normalizer.normalize(data[:street])
     @city           = Normalizer.normalize(data[:city])
     @state          = Normalizer.normalize(data[:state])
-    @zip_code       = Normalizer.normalize_zip_code(data[:zip_code])
+    @zip_code       = Normalizer.normalize_zip_code(data[:zipcode])
   end
 end
