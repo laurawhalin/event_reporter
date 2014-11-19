@@ -67,4 +67,20 @@ class Messages
     puts "The queue has been successfully saved to #{file}."
   end
 
+  def titlize(attribute)
+    words = attribute.split(' ')
+    if words[1] == nil
+      attribute.capitalize
+    else
+      words.map! do |word|
+        word.capitalize
+      end
+      words.join(" ")
+    end
+  end
+
+  def print_formatted_queue_results(result)
+    "#{titlize(result.last_name)}\t\t#{titlize(result.first_name)}\t\t#{result.email_address}\t\t#{result.zip_code}\t\t#{titlize(result.city)}\t\t#{result.state.upcase}\t\t#{titlize(result.address)}\t\t#{result.phone_number}"
+  end
+
 end
