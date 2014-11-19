@@ -1,5 +1,6 @@
 require_relative '../test_helper'
 require_relative '../lib/queue'
+require_relative '../lib/messages'
 
 class QueueTest < Minitest::Test
   def test_the_queue_is_empty_at_first
@@ -7,17 +8,18 @@ class QueueTest < Minitest::Test
     assert_equal 0, queue.count
   end
 
-  def test_the_repository_is_nil
+  def test_the_repository_is_nil_without_loading
     queue = Queue.new
-
+    refute queue.repository
   end
 
   def test_it_finds_by_first_name
-    # queue = Queue.new
-    # queue.repository = Minitest::Mock.new
-    # queue.repository.expect(:find_by, [], ["first_name", "Smith"])
-    # queue.lookup("first_name", "smith")
-    # queue.repository.verify
+    queue = Queue.new
+    queue.repository = Minitest::Mock.new
+    queue.repository.expect(:!=, [true], [nil])
+    queue.repository.expect(:find_by, [], ["first_name", "smith"])
+    queue.lookup("first_name", "smith")
+    queue.repository.verify
 
     queue = Queue.new
     queue.repository = Finder.load_entries('event_attendees.csv')
@@ -26,12 +28,12 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_finds_by_last_name
-    # repository = Minitest::Mock.new
-    # queue = Queue.new
-    # queue.repository = Finder.load_entries
-    # repository.expect(:find_by, [], ["last_name", "Taylor"])
-    # queue.lookup("last_name", 'Taylor')
-    # repository.verify
+    queue = Queue.new
+    queue.repository = Minitest::Mock.new
+    queue.repository.expect(:!=, [true], [nil])
+    queue.repository.expect(:find_by, [], ["last_name", "white"])
+    queue.lookup("last_name", "white")
+    queue.repository.verify
 
     queue = Queue.new
     queue.repository = Finder.load_entries('event_attendees.csv')
@@ -40,12 +42,12 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_finds_by_city
-    # repository = Minitest::Mock.new
-    # queue = Queue.new
-    # queue.repository = Finder.load_entries
-    # repository.expect(:find_by, [], ["city", "Denver"])
-    # queue.lookup("city", 'Denver')
-    # repository.verify
+    queue = Queue.new
+    queue.repository = Minitest::Mock.new
+    queue.repository.expect(:!=, [true], [nil])
+    queue.repository.expect(:find_by, [], ["city", "denver"])
+    queue.lookup("city", "denver")
+    queue.repository.verify
 
     queue = Queue.new
     queue.repository = Finder.load_entries('event_attendees.csv')
@@ -54,12 +56,12 @@ class QueueTest < Minitest::Test
   end
 
   def test_it_finds_by_state
-    # repository = Minitest::Mock.new
-    # queue = Queue.new
-    # queue.repository = Finder.load_entries
-    # repository.expect(:find_by, [], ["state", "CO"])
-    # queue.lookup("state", 'CO')
-    # repository.verify
+    queue = Queue.new
+    queue.repository = Minitest::Mock.new
+    queue.repository.expect(:!=, [true], [nil])
+    queue.repository.expect(:find_by, [], ["state", "co"])
+    queue.lookup("state", "co")
+    queue.repository.verify
 
     queue = Queue.new
     queue.repository = Finder.load_entries('event_attendees.csv')
@@ -126,4 +128,5 @@ class QueueTest < Minitest::Test
     actual_csv = IO.readlines("./data/testfile.csv")[3]
     assert_equal(expected_csv, actual_csv)
   end
+
 end

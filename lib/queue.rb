@@ -15,7 +15,7 @@ class Queue
     if repository_loaded?
       @results = repository.find_by(attribute, string)
     else
-      puts "No file has been loaded. #{messages.file_request}"
+      puts messages.no_file_loaded
     end
   end
 
