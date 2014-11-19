@@ -31,10 +31,10 @@ class Queue
     @results.count
   end
 
-  def print_by(attribute)
-    print_results.sort_by { |a| [a.attribute]}
-    #need an output: puts "#{messages.header} + #{print_by(?)}" ??
-  end
+  # def print_by(attribute)
+  #   print_results.sort_by { |a| [a.attribute]}
+  #   #need an output: puts "#{messages.header} + #{print_by(?)}" ??
+  # end
 
   def titlize(attribute)
     words = attribute.split(' ')
@@ -54,16 +54,24 @@ class Queue
     end
   end
 
+  def sort_by(attribute)
+    @results.sort_by! do |result|
+      result.send(attribute)
+    end
+  end
+
+  def print_by(attribute)
+    sort_by(attribute)
+    @results.map do |result|
+      "#{titlize(result.last_name)}\t\t#{titlize(result.first_name)}\t\t#{result.email_address}\t\t#{result.zip_code}\t\t#{titlize(result.city)}\t\t#{result.state.upcase}\t\t#{titlize(result.address)}\t\t#{result.phone_number}"
+    end
+  end
+
   def save(file_name)
-    CSV.open(("./data/#{file_name}"), "w", :headers => ["LAST NAME",
-                                            "FIRST NAME",
-                                            "EMAIL",
-                                            "ZIPCODE",
-                                            "CITY",
-                                            "STATE",
-                                            "ADDRESS",
-                                            "PHONE"]) do |csv|
-                                              csv << print_results
+    file = File.open("./data/#{file_name}", "w+") do |file|
+      @results.map do |r|
+        file << [r.last_name, r.first_name, r.email_address, r.zip_code, r.city, r.state, r.address, r.phone_number].join(", ") + "\n"
+      end
     end
   end
 end

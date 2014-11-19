@@ -83,8 +83,11 @@ class CLI
     when nil
       outstream.puts messages.header
       outstream.puts queue.print_results
-    when "by" then queue.print_by(argument[2])
-    else           outstream.puts messages.invalid_command
+    when "by"
+      outstream.puts messages.header
+      outstream.puts queue.print_by(arguments[2])
+    else
+      outstream.puts messages.invalid_command
     end
   end
 
