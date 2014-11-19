@@ -42,14 +42,8 @@ class Queue
     end
   end
 
-    def print_results_for_csv
-    @results.map do |result|
-      [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
-    end
-  end
-
  def print_results_for_csv
-    results.map do |result|
+    @results.map do |result|
       [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
     end
   end
