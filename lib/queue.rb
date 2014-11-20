@@ -11,9 +11,16 @@ class Queue
     @messages = Messages.new
   end
 
-  def lookup(attribute, string)
+  def lookup(criteria, attribute)
     case
-    when repository_loaded? then @results = repository.find_by(attribute, string)
+    when repository_loaded? then @results = repository.find_by(criteria, attribute)
+    else puts messages.no_file_loaded
+    end
+  end
+
+  def lookup_multiple(first_search, second_search)
+    case
+    when repository_loaded? then @results = repository.find_by_two(first_search, second_search)
     else puts messages.no_file_loaded
     end
   end

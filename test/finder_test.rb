@@ -146,4 +146,18 @@ class FinderTest < Minitest::Test
     assert_equal 1, entries.length
   end
 
+  def test_improved_find_finds_by_two_attributes
+    entries = [
+      { first_name: 'Sarah', last_name: 'Taylor', state: 'CA' },
+      { first_name: 'Sarah', last_name: 'Smith', state: 'CO' },
+      { first_name: 'Cindy', last_name: 'Johnson', state: 'CA' }
+    ].map { |row| Entry.new(row) }
+
+    finder = Finder.new(entries)
+    first_search = ["first_name", "sarah"]
+    second_search = ["state", "ca"]
+    entries = finder.find_by_two(first_search, second_search)
+    assert_equal 1, entries.length
+  end
+
 end

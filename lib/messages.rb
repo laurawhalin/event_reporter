@@ -110,4 +110,8 @@ class Messages
     "\n#{queue.count} entries"
   end
 
+  def file_does_not_exist(file)
+    "The file #{file} does not exist."
+  end
+
 end
