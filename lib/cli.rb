@@ -103,7 +103,6 @@ class CLI
   def process_print
     case arguments[1]
     when nil
-      outstream.puts messages.tab_delimited_header
       outstream.puts queue.print_results
     when "by"
       outstream.puts messages.tab_delimited_header
