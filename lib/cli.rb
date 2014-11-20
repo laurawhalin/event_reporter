@@ -24,6 +24,8 @@ class CLI
 
   def call
     outstream.puts messages.intro
+    outstream.puts messages.list_of_commands
+    outstream.puts messages.file_request
     until finished?
       split_input(get_user_input)
       process_commands
