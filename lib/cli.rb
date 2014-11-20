@@ -137,6 +137,6 @@ class CLI
   end
 
   def file_exists?
-    File.exist?(arguments[0])
+    File.exist?("./data/#{arguments[0]}")
   end
 end
