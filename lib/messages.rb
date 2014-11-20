@@ -114,7 +114,7 @@ class Messages
   end
 
   def print_formatted_results_for_csv(result)
-    [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
+    [titlize(result.last_name),titlize(result.first_name),result.email_address,result.zip_code,titlize(result.city),result.state.upcase,titlize(result.address),result.phone_number]
   end
 
   def no_file_loaded
