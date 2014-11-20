@@ -17,7 +17,12 @@ class Finder
    @entries = entries
   end
 
-  def find_by(attribute, string)
-    entries.select { |entry| entry.send(attribute) == string }
+  def find_by(criteria, attribute)
+    entries.select { |entry| entry.send(criteria) == attribute }
+  end
+
+  def find_by_two(first_criteria, first_attribute, second_criteria, second_attribute)
+    first_pass = entries.select { |entry| entry.send(first_criteria) == first_attribute }
+    first_pass.select { |entry| entry.send(second_criteria) == second_attribute }
   end
 end

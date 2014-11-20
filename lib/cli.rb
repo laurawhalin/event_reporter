@@ -52,6 +52,19 @@ class CLI
   end
 
   def find_by(arguments)
+    if arguments.include?("and")
+      process_multiple_seach_criteria(arguments)
+    else
+      process_single_search_criteria(arguments)
+    end
+  end
+
+  def process_multiple_seach_criteria(arguments)
+    queue.lookup_multiple(arguments[0], arguments[1], arguments[3], arguments[4])
+    outstream.puts messages.number_of_found_entries(queue)
+  end
+
+  def process_single_search_criteria(arguments)
     if arguments[0] != nil && Entry.instance_methods.include?(arguments[0].to_sym)
       set_lookup_arguments(arguments)
       outstream.puts messages.number_of_found_entries(queue)

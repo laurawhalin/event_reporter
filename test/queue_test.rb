@@ -97,6 +97,20 @@ class QueueTest < Minitest::Test
     assert_equal 1, queue.count
   end
 
+  def test_it_can_find_by_two_attributes
+    queue = Queue.new
+    queue.repository = Minitest::Mock.new
+    queue.repository.expect(:!=, [true], [nil])
+    queue.repository.expect(:find_by_two, [], ["state", "co", "city", "denver"])
+    queue.lookup_multiple("state", "co", "city", "denver")
+    queue.repository.verify
+
+    queue = Queue.new
+    queue.repository = Finder.load_entries
+    queue.lookup_multiple("first_name", "sarah", "state", "ca")
+    assert_equal 4, queue.count
+  end
+
   def test_it_prints_the_results_of_the_queue
     queue = Queue.new
     queue.repository = Finder.load_entries('event_attendees.csv')
