@@ -3,8 +3,27 @@ class Messages
     "Welcome to Event Reporter."
   end
 
+  def list_of_commands
+   puts "\nHere is a list of possible commands. Type 'help' for a longer description of each command."
+   puts "\n------------------------------------------------------------------------------------------"
+   puts "'help'                                                    - help menu"
+   puts "'help <command>'                                          - decription of that command"
+   puts "'load'                                                    - loads default file"
+   puts "'load <filename>'                                         - loads file"
+   puts "'find <criteria> <attribute>'                             - queries data by criteria"
+   puts "'find <criteria> <attribute> and <criteria> <attribute>'  - queries data by both criteria"
+   puts "'queue count'                                             - returns number of entries"
+   puts "'queue clear'                                             - clears current queue"
+   puts "'queue print'                                             - prints current queue"
+   puts "'queue print by <attribute>'                              - prints sorted by attribute"
+   puts "'queue save to <filename.csv>'                            - exports queue to file"
+   puts "'quit' or 'q'                                             - exits the application"
+   puts "options: find | queue | load"
+   puts "------------------------------------------------------------------------------------------\n"
+  end
+
   def file_request
-    "\nPlease load a file or simply type 'load' to load the default 'event_attendees.csv'"
+    "\nFirst: load a file or simply type 'load' to load the default 'event_attendees.csv'"
   end
 
   def command_request
