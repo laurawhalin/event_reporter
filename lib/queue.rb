@@ -47,12 +47,6 @@ class Queue
     puts table
   end
 
-  # def print_results
-  #   results.map do |result|
-  #     messages.print_formatted_queue_results(result)
-  #   end
-  # end
-
   def sort_by(attribute)
     results.sort_by! do |result|
       result.send(attribute)
@@ -61,9 +55,7 @@ class Queue
 
   def print_by(attribute)
     sort_by(attribute)
-    results.map do |result|
-      messages.print_formatted_queue_results(result)
-    end
+    print_results
   end
 
  def format_results_for_csv

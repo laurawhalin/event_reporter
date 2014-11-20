@@ -105,7 +105,6 @@ class CLI
     when nil
       outstream.puts queue.print_results
     when "by"
-      outstream.puts messages.tab_delimited_header
       outstream.puts queue.print_by(arguments[2])
     else
       outstream.puts messages.invalid_command
