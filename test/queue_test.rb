@@ -115,32 +115,6 @@ class QueueTest < Minitest::Test
     assert_equal 4, queue.count
   end
 
-  def test_it_prints_the_results_of_the_queue
-    queue = Queue.new
-    queue.repository = Finder.load_entries('event_attendees.csv')
-    print_result =
-      "+-----------+------------+-------------------------------+---------+--------+-------+----------------------+------------+
-       | LAST NAME | FIRST NAME | EMAIL ADDRESS                 | ZIPCODE | CITY   | STATE | STREET               | HOME PHONE |
-       +-----------+------------+-------------------------------+---------+--------+-------+----------------------+------------+
-       | riordan   | sarah      | ctuhspugha@jumpstartlab.com   | 80212   | denver | co    | 2814 tennyson st.    | 7202058000 |
-       | jenkins   | alexis     | sqcoomer11@jumpstartlab.com   | 80212   | denver | co    | 5020 w. moncrieff pl | 9285563000 |
-       | joyce     | addison    | oxke.connery@jumpstartlab.com | 80222   | denver | co    | 1540 s. bellaire st  | 7088299000 |
-       +-----------+------------+-------------------------------+---------+--------+-------+----------------------+------------+"
-    queue.lookup("city", "denver")
-    assert_equal print_result, queue.print_results
-  end
-
-  def test_it_prints_the_sorted_results_of_the_queue_after_print_by
-    queue = Queue.new
-    queue.repository = Finder.load_entries('event_attendees.csv')
-    print_result =
-      ["Jenkins		Alexis		sqcoomer11@jumpstartlab.com		80212		Denver		CO		5020 W. Moncrieff Pl		9285563000",
-      "Joyce		Addison		oxke.connery@jumpstartlab.com		80222		Denver		CO		1540 S. Bellaire St		7088299000",
-      "Riordan		Sarah		ctuhspugha@jumpstartlab.com		80212		Denver		CO		2814 Tennyson St.		7202058000"]
-    queue.lookup("city", "denver")
-    assert_equal print_result, queue.print_by("last_name")
-  end
-
   def test_it_creates_a_csv
     queue = Queue.new
     queue.repository = Finder.load_entries('event_attendees.csv')
