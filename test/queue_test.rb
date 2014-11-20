@@ -99,15 +99,19 @@ class QueueTest < Minitest::Test
 
   def test_it_can_find_by_two_attributes
     queue = Queue.new
+    first_search = ["state", "co"]
+    second_search = ["city", "denver"]
     queue.repository = Minitest::Mock.new
     queue.repository.expect(:!=, [true], [nil])
-    queue.repository.expect(:find_by_two, [], ["state", "co", "city", "denver"])
-    queue.lookup_multiple("state", "co", "city", "denver")
+    queue.repository.expect(:find_by_two, [], [first_search, second_search])
+    queue.lookup_multiple(first_search, second_search)
     queue.repository.verify
 
     queue = Queue.new
     queue.repository = Finder.load_entries
-    queue.lookup_multiple("first_name", "sarah", "state", "ca")
+    first_search = ["first_name", "sarah"]
+    second_search = ["state", "ca"]
+    queue.lookup_multiple(first_search, second_search)
     assert_equal 4, queue.count
   end
 

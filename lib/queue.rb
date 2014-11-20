@@ -18,9 +18,9 @@ class Queue
     end
   end
 
-  def lookup_multiple(first_criteria, first_attribute, second_criteria, second_attribute)
+  def lookup_multiple(first_search, second_search)
     case
-    when repository_loaded? then @results = repository.find_by_two(first_criteria, first_attribute, second_criteria, second_attribute)
+    when repository_loaded? then @results = repository.find_by_two(first_search, second_search)
     else puts messages.no_file_loaded
     end
   end

@@ -154,7 +154,9 @@ class FinderTest < Minitest::Test
     ].map { |row| Entry.new(row) }
 
     finder = Finder.new(entries)
-    entries = finder.find_by_two('first_name', 'sarah', 'state', 'ca')
+    first_search = ["first_name", "sarah"]
+    second_search = ["state", "ca"]
+    entries = finder.find_by_two(first_search, second_search)
     assert_equal 1, entries.length
   end
 
