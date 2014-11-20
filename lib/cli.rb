@@ -37,13 +37,13 @@ class CLI
 
   def process_commands
     case command
-    when "find"         then find_by(arguments)
-    when "queue"        then process_queue(arguments)
-    when "help"         then process_help(arguments)
-    when "load"         then load_file(arguments) && messages.file_loaded(arguments[0])
-    when "q"            then outstream.puts messages.exit_message
-    when "quit"         then outstream.puts messages.exit_message
-    else                     outstream.puts messages.invalid_command
+    when "find"   then find_by(arguments)
+    when "queue"  then process_queue(arguments)
+    when "help"   then process_help(arguments)
+    when "load"   then load_file(arguments)
+    when "q"      then outstream.puts messages.exit_message
+    when "quit"   then outstream.puts messages.exit_message
+    else               outstream.puts messages.invalid_command
     end
   end
 
@@ -98,14 +98,7 @@ class CLI
   end
 
   def process_queue_help(arguments)
-    case arguments[1]
-    when nil     then outstream.puts messages.queue_description
-    when "clear" then outstream.puts messages.queue_clear_description
-    when "count" then outstream.puts messages.queue_count_description
-    when "print" then outstream.puts messages.queue_print_description
-    when "save"  then outstream.puts messages.queue_save_description
-    else              outstream.puts messages.invalid_command
-    end
+    outstream.puts messages.queue_help(arguments[1])
   end
 
   def load_file(arguments)

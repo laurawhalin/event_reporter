@@ -7,7 +7,6 @@ class Finder
   def self.load_entries(name = 'event_attendees.csv')
     file = File.join("./data", name)
     data = CSV.open(file, headers: true, :header_converters => :symbol.downcase)
-
     rows = data.map do |row|
       Entry.new(row)
     end
