@@ -1,5 +1,2 @@
-# 1. finish queue print
-# 2. finish queue save
-# 3. normalize the data in seperate method
-# 4. find two word first names
-# 5. only able to find after loading file
+# 1. fix splitting on string when no value for keys (ie. Sarah has no address)
+# 2. return no such file when loading file that doesn't exist

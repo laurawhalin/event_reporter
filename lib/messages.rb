@@ -43,6 +43,17 @@ class Messages
     "\n'find <attribute> <criteria>' - Searches data for attendees that meet a specific search criteria."
   end
 
+  def queue_help(argument)
+    case argument
+    when nil      then queue_description
+    when "clear"  then queue_clear_description
+    when "count"  then queue_count_description
+    when "print"  then queue_print_description
+    when "save"   then queue_save_description
+    else               invalid_command
+    end
+  end
+
   def queue_description
     "\n'queue <command>' - The Queue holds all of the data from the current search until it is exported, cleared, or the next search is executed using the 'find <attribute> <criteria>' command.\nSee also: 'queue count', 'queue clear', 'queue print', and 'queue save to'"
   end
@@ -81,6 +92,10 @@ class Messages
 
   def print_formatted_queue_results(result)
     "#{titlize(result.last_name)}\t\t#{titlize(result.first_name)}\t\t#{result.email_address}\t\t#{result.zip_code}\t\t#{titlize(result.city)}\t\t#{result.state.upcase}\t\t#{titlize(result.address)}\t\t#{result.phone_number}"
+  end
+
+  def print_formatted_results_for_csv(result)
+    [result.last_name,result.first_name,result.email_address,result.zip_code,result.city,result.state,result.address,result.phone_number]
   end
 
   def no_file_loaded
