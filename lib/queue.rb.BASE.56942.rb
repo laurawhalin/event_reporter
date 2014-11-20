@@ -1,7 +1,6 @@
 require_relative 'finder'
 require_relative 'messages'
 require 'csv'
-require 'terminal-table'
 
 class Queue
   attr_reader :repository, :messages
@@ -22,6 +21,12 @@ class Queue
 
   def count
     @results.count
+  end
+
+  def print_results
+    @results.map do |result|
+      messages.print_formatted_queue_results(result)
+    end
   end
 
   def sort_by(attribute)
@@ -50,14 +55,5 @@ class Queue
         csv << result
       end
     end
-  end
-
-  def print_results
-    rows = []
-    print_results_for_csv.map do |entry|
-      rows << entry
-    end
-    table = Terminal::Table.new :headings => messages.csv_header, :rows => rows
-    puts table
   end
 end

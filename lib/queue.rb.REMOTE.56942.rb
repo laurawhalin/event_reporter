@@ -24,6 +24,12 @@ class Queue
     @results.count
   end
 
+  # def print_results
+  #   @results.map do |result|
+  #     messages.print_formatted_queue_results(result)
+  #   end
+  # end
+
   def sort_by(attribute)
     @results.sort_by! do |result|
       result.send(attribute)
@@ -53,6 +59,7 @@ class Queue
   end
 
   def print_results
+    # require 'pry'; binding.pry
     rows = []
     print_results_for_csv.map do |entry|
       rows << entry
